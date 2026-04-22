@@ -94,3 +94,24 @@ export const signOut = async (req,res) => {
     return res.status(500).json({message:`signin error ${error}`})
   }
 }
+
+// SEND OTP CONTROLLER || RESET PASSWORD==================================
+
+export const sendOtp = async (req,res) => {
+  try {
+    const {email} = req.body;
+    const user = await User.findOne({email})
+    if (!user) {
+      return res.status(400).json({message:"User Not Found"})
+    }
+
+    const otp = Math.floor(1000 + Math.random() * 9000).toString()
+
+    user.resetOtp=otp,
+    user.otpExpires=new Date.now() + 5*60*1000
+    user.isOtpVerified=false
+
+  } catch (error) {
+    
+  }
+}
