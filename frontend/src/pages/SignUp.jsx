@@ -7,9 +7,12 @@ import axios from "axios";
 import { serverUrl } from "../App";
 import { ClipLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setUserData } from "../redux/userSlice";
 
 const SignUp = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch()
 
   const [inpuClicked, setInputClicked] = useState({
     name: false,
@@ -36,7 +39,7 @@ const SignUp = () => {
         { name, userName, email, password },
         { withCredentials: true },
       );
-      console.log(result.data);
+      dispatch(setUserData(result.data))
       setLoading(false);
     } catch (error) {
       setErr(error.response?.data?.message)
