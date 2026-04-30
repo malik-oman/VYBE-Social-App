@@ -1,14 +1,17 @@
 import axios from 'axios'
 import React from 'react'
 import { serverUrl } from '../App'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { setProfileData, setUserData } from '../redux/userSlice'
 import { useEffect } from 'react'
 import { IoMdArrowRoundBack } from "react-icons/io";
 import dp from './../assets/download.jfif'
+import Naav from '../components/Naav'
 
 const Profile = () => {
+
+  const navigate = useNavigate()
 
   const {userName} = useParams()
   const dispatch = useDispatch()
@@ -41,7 +44,7 @@ useEffect(()=>{
 
       {/* USERNAME AND LOGOUT ================= BACK ICON */}
       <div className='w-full h-[80px] flex justify-between items-center px-[30px] text-white'>
-        <div><IoMdArrowRoundBack className='text-white w-[25px] h-[25px]'/></div>
+        <div onClick={()=>navigate('/')}><IoMdArrowRoundBack className='text-white w-[25px] h-[25px]'/></div>
         <div className='font-semibold text-[20px]'>{profileData.userName}</div>
         <div onClick={handleLogout} className='font-semibold cursor-pointer text-[20px] text-blue-500'>Log Out</div>
       </div>
@@ -151,7 +154,7 @@ useEffect(()=>{
 
                   <div className='w-full h-[80px] flex justify-center items-center gap-[20px] mt-[10px]'>
                   {profileData?._id==userData._id && 
-                  <button className='px-[10px] min-w-[150px] py-[5px] h-[40px] bg-white cursor-pointer rounded-2xl'>Edit Profile</button>
+                  <button onClick={()=>navigate('/editprofile')} className='px-[10px] min-w-[150px] py-[5px] h-[40px] bg-white cursor-pointer rounded-2xl'>Edit Profile</button>
                   }
 
                   {profileData?._id != userData._id
@@ -161,6 +164,13 @@ useEffect(()=>{
                   <button  className='px-[10px] min-w-[150px] py-[5px] h-[40px] bg-white cursor-pointer rounded-2xl'>Message</button>
                   </>
                   }
+                  </div>
+
+                  {/* POST============================ */}
+                  <div className='w-full min-h-[100vh] flex justify-center'> 
+                    <div className='w-full max-w-[900px] flex flex-col items-center rounded-t-[30px] bg-white relative gap-[20px] pt-[30px]'>
+                      <Naav/>
+                    </div>
                   </div>
        
     </div>
