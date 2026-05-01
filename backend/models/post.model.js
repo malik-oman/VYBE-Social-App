@@ -25,7 +25,17 @@ const postSchema = new mongoose.Schema(
         ref: "User",
       },
     ],
-    comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+    comments: [
+    { 
+      author: {
+         type: mongoose.Schema.Types.ObjectId,
+          ref: "User",
+         },
+         message:{
+          type:String
+         }
+        }
+    ],
   },
   { timestamps: true },
 );

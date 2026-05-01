@@ -5,6 +5,8 @@ import cookieParser from 'cookie-parser'
 import cors from 'cors'
 import authRouter from './routes/auth.routes.js'
 import userRouter from './routes/user.routes.js'
+import postRouter from './routes/post.routes.js'
+import loopRouter from './routes/loop.routes.js'
 
 
 // DOT ENV CONFIGURATION===================================
@@ -23,6 +25,8 @@ app.use(cors({
 // API END POINTS===============================
 app.use('/api/auth', authRouter)
 app.use('/api/user', userRouter)
+app.use('/api/post', postRouter)
+app.use('/api/loop', loopRouter)
 
 // POST DEFINE ==================================================
 const port = process.env.PORT || 5000

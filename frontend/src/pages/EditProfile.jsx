@@ -1,8 +1,12 @@
 import React, { useRef, useState } from 'react'
 import { IoMdArrowRoundBack } from "react-icons/io";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import dp from './../assets/download.jfif'
+import axios from 'axios';
+import { serverUrl } from '../App';
+import { setProfileData, setUserData } from '../redux/userSlice';
+import { ClipLoader } from 'react-spinners';
 
 const EditProfile = () => {
 
@@ -16,14 +20,41 @@ const EditProfile = () => {
   const [profession,setProfession] = useState(userData?.profession || "")
   const [gender,setGender] = useState(userData?.gender || "")
 
+  const [loading,setLoading] = useState(false)
+
   const imageInput = useRef()
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+
 
   const handleImage = (e) => {
     const file = e.target.files[0]
     if (!file) return
     setFrontendImage(URL.createObjectURL(file))  // ✅ preview update
     setBackendImage(file)                         // ✅ actual file for upload
+  }
+
+  const handleEditProfile = async () => {
+    setLoading(true)
+    try {
+      const formdata = new FormData()
+        formdata.append("name",name)
+        formdata.append("userName",userName)
+        formdata.append("bio",bio)
+        formdata.append("profession",profession)
+        formdata.append("gender",gender)
+        if (backendImage) {
+          formdata.append("profileImage", backendImage)
+        }
+      const result = await axios.post(`${serverUrl}/api/user/editProfile`,formdata,{withCredentials:true})
+      dispatch(setProfileData(result.data))
+      dispatch(setUserData(result.data))
+      setLoading(false)
+     navigate(`/profile/${result.data.userName}`)
+    } catch (error) {
+     console.log(error) 
+     setLoading(false)
+    }
   }
 
   return (
@@ -65,7 +96,7 @@ const EditProfile = () => {
       <input type="text" className='w-[90%] max-w-[600px] h-[60px] bg-[#0a1010] border-2 border-gray-700 rounded-2xl px-[20px] outline-none text-white font-semibold' placeholder='Gender' onChange={(e)=>setGender(e.target.value)} value={gender} />
 
 
-      <button className='px-[10px] mt-7 w-[60%] max-w-[400px] py-[5px] h-[50px] bg-white cursor-pointer rounded-2xl'>Save Profile</button>
+      <button onClick={handleEditProfile} className='px-[10px] mt-7 w-[60%] max-w-[400px] py-[5px] h-[50px] bg-white cursor-pointer rounded-2xl'>{loading?<ClipLoader size={30} color='black'/> : "Save Profile"}</button>
     </div>
   )
 }

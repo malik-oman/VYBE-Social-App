@@ -12,13 +12,13 @@ const Naav = () => {
   return (
     <div className='w-[90%] lg:w-[40%] h-[80px] bg-black flex justify-around items-center fixed bottom-[20px] rounded-full shadow-2xl shadow-[#000000] z-[100]'>
 
-      <div className='text-white w-[25px] h-[25px]'><FaHome/></div>
-      <div className='text-white w-[25px] h-[25px]'><FaPlus/></div>
-      <div className='text-white w-[25px] h-[25px]'><FaSearch/></div>
-      <div className='text-white w-[28px] h-[28px]'><FaVideo/></div>
+      <div onClick={()=>navigate('/')} className='text-white w-[25px] h-[25px] cursor-pointer'><FaHome/></div>
+      <div className='text-white w-[25px] h-[25px] cursor-pointer'><FaPlus/></div>
+      <div className='text-white w-[25px] h-[25px] cursor-pointer'><FaSearch/></div>
+      <div className='text-white w-[28px] h-[28px] cursor-pointer'><FaVideo/></div>
          <div onClick={()=>navigate(`/profile/${userData.userName}`)} className='w-[40px] h-[40px] border-2 border-black rounded-full cursor-pointer overflow-hidden'>
                   <img 
-                    src={ dp} 
+                    src={userData.profileImage || dp} 
                     alt="" 
                     className='w-full h-full object-cover object-center' 
                   />

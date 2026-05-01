@@ -7,7 +7,7 @@ import User from "../models/user.model.js"
 export const getCurrentUser = async (req,res) => {
    try {
     const userId = req.userId
-    const user = await User.findById(userId)
+    const user = await User.findById(userId).populate("posts loops")
     if (!user) {
       return res.status(400).json({message:"User not found"});
     }
@@ -34,6 +34,7 @@ export const suggestedUser = async (req,res) => {
 
 export const editProfile = async (req,res) => {
   try {
+    
     const {name,userName,bio,profession,gender} = req.body
     const user = await User.findById(req.userId).select("-password")
     if (!user) {
@@ -42,18 +43,16 @@ export const editProfile = async (req,res) => {
 
     const sameUserWithUserName = await User.findOne({userName}).select("-password")
 
-    if (sameUserWithUserName && sameUserWithUserName._id!==req.userId) {
+    if (sameUserWithUserName && sameUserWithUserName._id.toString() !==req.userId.toString()) {
       return res.status(400).json({message:"userName already exist"})
     }
 
-    let profileImage;
     if (req.file) {
-      profileImage=await uploadOnCloudinary(req.file.path)
+      user.profileImage=await uploadOnCloudinary(req.file.path)
     }
 
     user.name=name
     user.userName=userName
-    user.profileImage=profileImage
     user.bio=bio
     user.profession=profession
     user.gender=gender

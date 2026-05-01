@@ -51,7 +51,7 @@ useEffect(()=>{
 
       {/* PROFILE IMAGE ============================= */}
       <div className='w-full h-[150px] flex items-start gap-[20px] lg:gap-[50px] pt-[20px] px-[10px] justify-center'>
-         <div className='w-[80px] h-[80px] md:w-[140px] h-[140px] border-2 border-black rounded-full cursor-pointer overflow-hidden shrink-0'>
+         <div  className='w-[90px] h-[90px] md:w-[140px] md:h-[140px] border-2 border-black rounded-full cursor-pointer overflow-hidden shrink-0' >
                     <img 
                       src={profileData?.profileImage || dp} 
                       alt="" 
