@@ -7,6 +7,7 @@ import authRouter from './routes/auth.routes.js'
 import userRouter from './routes/user.routes.js'
 import postRouter from './routes/post.routes.js'
 import loopRouter from './routes/loop.routes.js'
+import storyRouter from './routes/story.routes.js'
 
 
 // DOT ENV CONFIGURATION===================================
@@ -27,6 +28,7 @@ app.use('/api/auth', authRouter)
 app.use('/api/user', userRouter)
 app.use('/api/post', postRouter)
 app.use('/api/loop', loopRouter)
+app.use('/api/story', storyRouter)
 
 // POST DEFINE ==================================================
 const port = process.env.PORT || 5000
