@@ -1,27 +1,24 @@
-import { v2 as cloudinary } from 'cloudinary'
-import fs from 'fs'
+import { v2 as cloudinary } from "cloudinary";
+import fs from "fs";
 
 const uploadOnCloudinary = async (file) => {
   try {
-        cloudinary.config({ 
-  cloud_name: process.env.CLOUD_NAME, 
-  api_key: process.env.CLOUD_API, 
-  api_secret: process.env.CLOUD_SECRET,
-});
+    cloudinary.config({
+      cloud_name: process.env.CLOUD_NAME,
+      api_key: process.env.CLOUD_API,
+      api_secret: process.env.CLOUD_SECRET,
+    });
 
- const result = await cloudinary.uploader
-  .upload(file,{
-    resource_type:'auto'
-  })
-  fs.unlinkSync(file)
-  return result.secure_url
+    const result = await cloudinary.uploader.upload(file, {
+      resource_type: "auto",
+    });
+    fs.unlinkSync(file);
+    return result.secure_url;
   } catch (error) {
-      fs.unlinkSync(file)
-    console.log(error)
+    fs.unlinkSync(file);
+    console.log(error);
+    throw error; // Throw the error so it can be caught in the controller
   }
+};
 
-
-}
-
-export default uploadOnCloudinary
-
+export default uploadOnCloudinary;

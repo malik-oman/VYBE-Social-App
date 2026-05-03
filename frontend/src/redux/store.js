@@ -1,8 +1,14 @@
 import {configureStore} from '@reduxjs/toolkit'
 import userSlice from './userSlice'
- const store = configureStore({
+import postSlice from './postSlice'   
+import storySlice from './storySlice'
+import loopSlice from './loopSlice'   
+const store = configureStore({
     reducer:{
-      user:userSlice
+      user: userSlice,
+      post: postSlice,
+      story: storySlice,
+      loop: loopSlice
     }
 })
 
