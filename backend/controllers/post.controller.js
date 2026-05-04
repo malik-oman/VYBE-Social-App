@@ -41,8 +41,8 @@ export const uploadPost = async (req, res) => {
 // GET ALL POSTS CONTROLLER
 export const getAllPosts = async (req, res) => {
   try {
-    const posts = await Post.find({ })
-      .populate("author", "name userName profileImage");
+    const posts = await Post.find({})
+      .populate("author", "name userName profileImage").sort({createdAt:-1});
     return res.status(200).json(posts);
   } catch (error) {
     return res.status(500).json({ message: `get all post error ${error}` });
