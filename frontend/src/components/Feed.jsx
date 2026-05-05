@@ -39,7 +39,7 @@ const Feed = () => {
               <Naav/>
 
               {postData?.map((post,index)=>(
-                <Post postData={post} key={index}/>
+                <Post post={post} key={index}/>
               ))}
             </div>
     </div>

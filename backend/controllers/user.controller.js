@@ -80,3 +80,5 @@ export const getProfile = async (req,res) => {
     return res.status(500).json({message:`get profile error ${error}`})
   }
 }
+
+// FOLLOW CONTROLLER ========================================
