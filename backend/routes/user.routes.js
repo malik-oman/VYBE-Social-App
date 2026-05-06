@@ -1,6 +1,6 @@
 import express from 'express'
 import isAuth from '../middlewares/isAuth.js'
-import { editProfile, getCurrentUser, getProfile, suggestedUser } from '../controllers/user.controller.js'
+import { editProfile, follow, getCurrentUser, getProfile, suggestedUser } from '../controllers/user.controller.js'
 import { upload } from '../middlewares/multer.js'
 
 
@@ -10,6 +10,7 @@ userRouter.get('/current', isAuth, getCurrentUser)
 userRouter.get('/suggested', isAuth, suggestedUser)
 userRouter.get('/getProfile/:userName', isAuth, getProfile)
 userRouter.post('/editProfile', isAuth,upload.single('profileImage'), editProfile)
+userRouter.get('/follow/:targetUserId', isAuth,follow)
 
 
 
